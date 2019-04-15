@@ -17,4 +17,3 @@
 //= require tinymce
 //= require prism
 //= require activestorage
-//= require turbolinks

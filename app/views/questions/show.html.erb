@@ -1,14 +1,27 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Title:</strong>
-  <%= @question.title %>
-</p>
-
-<p>
-  <strong>Answer:</strong>
-  <%= @question.answer.html_safe %>
-</p>
-
-<%= link_to 'Edit', edit_question_path(@question) %> |
-<%= link_to 'Back', questions_path %>
+<div class="row">
+  <div class="col-md-9">
+    <p class="font-30 mb-1"><%= @question.title %></p>
+    <div class="d-flex flex-row">
+      <div class="p-2">
+        <%= link_to 'javascript:void(0)' do %>
+          <%= image_tag 'like.png', width: '30' %>
+        <% end %>
+      </div>
+      <div class="p-2">
+        <%= link_to 'javascript:void(0)' do %>
+          <%= image_tag 'dislike.png', width: '30' %>
+        <% end %>
+      </div>
+      <div class="p-2">
+        <%= link_to 'javascript:void(0)' do %>
+          <%= image_tag 'share.png', width: '30' %>
+        <% end %>
+      </div>
+    </div>
+    <div class="p-2 mt-4">
+      <%= @question.answer.html_safe %>
+    </div>
+    <%= link_to 'Edit', edit_question_path(@question) %> |
+    <%= link_to 'Back', questions_path %>
+  </div>
+</div>

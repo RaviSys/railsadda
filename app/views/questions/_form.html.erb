@@ -18,7 +18,7 @@
 
   <div class="field">
     <%= form.label :answer %>
-    <%= form.text_area :answer, :class => "tinymce" %>
+    <%= form.text_area :answer, class: "tinymce", rows: "30", columns: "120" %>
   </div>
 
   <div class="actions">
@@ -26,19 +26,4 @@
   </div>
 <% end %>
 
-<script type="text/javascript">
-  $( document ).on('turbolinks:load', function() {
-    tinyMCE.init({ 
-      selector: 'textarea.tinymce',
-      plugins: [
-        'table', 'lists', 'code' // whatever plugins you want to add
-      ]
-      toolbar: "code",
-      menubar: "tools"
-    });
-  });
-</script>
-
 <%= tinymce %>
-
-
