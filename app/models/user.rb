@@ -5,7 +5,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable, :trackable
 
   has_many :visits, class_name: "Ahoy::Visit"
-
+  has_many :comments
+  
   def name
     "#{self.first_name} #{self.last_name}".strip
   end
