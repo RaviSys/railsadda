@@ -18,6 +18,13 @@
         <% end %>
       </div>
     </div>
+    <div class="d-flex flex-row">
+      <% @question.keywords.each do |keyword| %>
+        <div class="p-2">
+          <span class="badge badge-primary"><%= keyword %></span>
+        </div>
+      <% end %>
+    </div>
     <div class="p-2 mt-4">
       <%= @question.answer.html_safe %>
     </div>

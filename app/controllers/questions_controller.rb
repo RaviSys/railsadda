@@ -9,7 +9,7 @@ class QuestionsController < ApplicationController
     prepare_meta_tags(
       title: @question.title,
       description: @question.answer,
-      # keywords: @question.keyword_list,
+      keywords: @question.keyword_list,
       twitter: {
         card: @question.title
         }
@@ -64,6 +64,6 @@ class QuestionsController < ApplicationController
     end
 
     def question_params
-      params.require(:question).permit(:title, :answer)
+      params.require(:question).permit(:title, :answer, :keyword_list)
     end
 end
