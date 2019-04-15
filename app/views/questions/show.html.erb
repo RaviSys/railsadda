@@ -3,14 +3,16 @@
     <p class="font-30 mb-1"><%= @question.title %></p>
     <div class="d-flex flex-row">
       <div class="p-2">
-        <%= link_to 'javascript:void(0)' do %>
+        <%= link_to like_question_path(@question), method: :patch do %>
           <%= image_tag 'like.png', width: '30' %>
-        <% end %>
+        <% end %><br>
+        <span class="ml-2"><%= @question.get_upvotes.size %></span>
       </div>
       <div class="p-2">
-        <%= link_to 'javascript:void(0)' do %>
+        <%= link_to dislike_question_path(@question), method: :patch do %>
           <%= image_tag 'dislike.png', width: '30' %>
-        <% end %>
+        <% end %><br>
+        <span class="ml-2"><%= @question.get_downvotes.size %></span>
       </div>
       <div class="p-2">
         <%= link_to 'javascript:void(0)' do %>

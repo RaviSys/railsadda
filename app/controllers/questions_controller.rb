@@ -1,6 +1,6 @@
 class QuestionsController < ApplicationController
   before_action :set_question, only: [:show, :edit, :update, :destroy]
-
+  before_action :authenticate_user!, only: [:upvote, :downvote]
   def index
     @questions = Question.all
   end
@@ -55,6 +55,18 @@ class QuestionsController < ApplicationController
       format.html { redirect_to questions_url, notice: 'Question was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def upvote 
+    @question = Question.find(params[:id])
+    @question.upvote_by current_user
+    redirect_to @question, flash: { success: 'Thank you for your response' }
+  end  
+
+  def downvote
+    @question = Question.find(params[:id])
+    @question.downvote_by current_user
+    redirect_to @question, flash: { error: 'Thank you for your response' }
   end
 
   private
