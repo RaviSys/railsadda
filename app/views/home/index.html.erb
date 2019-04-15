@@ -1,0 +1,13 @@
+<% if user_signed_in? %>
+  <h5 class="text-muted font-weight-bold">Signed in as <span class="badge badge-success"><%= current_user.name %></span></h5>
+  <h5 class="text-muted font-weight-bold">
+    <%= link_to destroy_user_session_path, data: { confirm: 'Are you sure you want to sign out', method: :delete } do %>
+      <span class="badge badge-success">Log Out</span>
+    <% end %>
+    <%= link_to "My Activities", user_activities_path, class: "badge badge-success" %>
+  </h5>
+<% else %>
+  <%= link_to new_user_session_path do %>
+    <span class="badge badge-success">Log In</span>
+  <% end %>
+<% end %>

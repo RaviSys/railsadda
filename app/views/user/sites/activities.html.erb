@@ -1,0 +1,83 @@
+<div class="card rounded-0">
+  <div class="card-body">
+    <h5 class="text-muted font-weight-bold">Hi <%= current_user.name %> track your activities.</h5>
+    <%= link_to "Home", root_path, class: "badge badge-success float-right" %>
+  </div>
+</div>
+
+<div class="accordion" id="accordionExample">
+
+  <% @activities.each do |activity| %>
+    <div class="card rounded-0 mb-3">
+      <div class="card-header" id="heading_<%= activity.id %>">
+        <h5 class="mb-0">
+          <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse_<%= activity.id %>" aria-expanded="true" aria-controls="collapse_<%= activity.id %>">
+            <a href="javascript:void(0)" target="_blank"><%= activity.landing_page %></a>
+          </button>
+        </h5>
+      </div>
+      <div id="collapse_<%= activity.id %>" class="collapse" aria-labelledby="heading_<%= activity.id %>" data-parent="#accordionExample">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-3">
+              <h6 class="text-muted font-weight-bold float-right">Visit Token:</h6>
+            </div>
+            <div class="col-md-9">
+              <small class="text-muted font-weight-bold float-left"><%= activity.visit_token %></small>
+            </div>
+            <div class="col-md-3">
+              <h6 class="text-muted font-weight-bold float-right">Visitor Token:</h6>
+            </div>
+            <div class="col-md-9">
+              <small class="text-muted font-weight-bold float-left"><%= activity.visitor_token %></small>
+            </div>
+            <div class="col-md-3">
+              <h6 class="text-muted font-weight-bold float-right">User Agents:</h6>
+            </div>
+            <div class="col-md-9">
+              <small class="text-muted font-weight-bold float-left"><%= activity.user_agent %></small>
+            </div>
+            <div class="col-md-3">
+              <h6 class="text-muted font-weight-bold float-right">Referring Domain:</h6>
+            </div>
+            <div class="col-md-9">
+              <small class="text-muted font-weight-bold float-left"><%= activity.referring_domain || 'Unknown' %></small>
+            </div>
+            <div class="col-md-3">
+              <h6 class="text-muted font-weight-bold float-right">Referrer:</h6>
+            </div>
+            <div class="col-md-9">
+              <small class="text-muted font-weight-bold float-left"><%= activity.referrer || 'Unknown' %></small>
+            </div>
+            <div class="col-md-3">
+              <h6 class="text-muted font-weight-bold float-right">Browser:</h6>
+            </div>
+            <div class="col-md-9">
+              <% if activity.browser == 'Chrome' %>
+                <%= image_tag 'chrome.jpg', width: '50' %>
+              <% elsif activity.browser == 'Firefox' %>
+                <%= image_tag 'firefox.jpg', width: '50' %>
+              <% end %>
+            </div>
+            <div class="col-md-3">
+              <h6 class="text-muted font-weight-bold float-right">Operating System:</h6>
+            </div>
+            <div class="col-md-9">
+              <% if activity.os == 'GNU/Linux' || activity.os == 'Ubuntu' %>
+                <%= image_tag 'linux.png', width: '50' %>
+              <% end %>
+            </div>
+            <div class="col-md-3">
+              <h6 class="text-muted font-weight-bold float-right">Device Type:</h6>
+            </div>
+            <div class="col-md-9">
+              <% if activity.device_type == 'Desktop' %>
+                <%= image_tag 'desktop.png', width: '50' %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
