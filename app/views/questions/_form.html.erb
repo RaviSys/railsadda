@@ -1,0 +1,44 @@
+<%= form_with(model: question, local: true) do |form| %>
+  <% if question.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(question.errors.count, "error") %> prohibited this question from being saved:</h2>
+
+      <ul>
+      <% question.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :title %>
+    <%= form.text_area :title %>
+  </div>
+
+  <div class="field">
+    <%= form.label :answer %>
+    <%= form.text_area :answer, :class => "tinymce" %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
+
+<script type="text/javascript">
+  $( document ).on('turbolinks:load', function() {
+    tinyMCE.init({ 
+      selector: 'textarea.tinymce',
+      plugins: [
+        'table', 'lists', 'code' // whatever plugins you want to add
+      ]
+      toolbar: "code",
+      menubar: "tools"
+    });
+  });
+</script>
+
+<%= tinymce %>
+
+

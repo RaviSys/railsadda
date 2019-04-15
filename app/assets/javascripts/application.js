@@ -14,5 +14,7 @@
 //= require jquery3
 //= require popper
 //= require bootstrap
+//= require tinymce
+//= require prism
 //= require activestorage
 //= require turbolinks
