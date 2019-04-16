@@ -1,0 +1,19 @@
+<div class="row mt-5">
+  <div class="col-md-12">
+    <h5 class="font-30 mb-1 font-weight-bold"><%= @question.title %></h5>
+    <div class="d-flex flex-row">
+      <% @question.keywords.each do |keyword| %>
+        <div class="p-2">
+          <span class="badge badge-primary"><%= keyword %></span>
+        </div>
+      <% end %>
+    </div>
+    <div class="p-2 mt-4">
+      <%= @question.answer.html_safe %>
+    </div>
+    <div class="p-2 mt-4">
+      <%= link_to 'Edit', edit_admin_question_path(@question), class: "btn btn-secondary rounded-0" %> |
+      <%= link_to 'Back', admin_questions_path, class: "btn btn-primary rounded-0" %>
+    </div>
+  </div>
+</div>
