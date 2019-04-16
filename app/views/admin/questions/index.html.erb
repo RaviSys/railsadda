@@ -1,0 +1,19 @@
+<div class="row">
+  <div class="col-12">
+    <div class="row">
+      <div class="col-md-8">
+        <h3 class="font-weight-bold">Listing Questions</h3>
+      </div>
+      <div class="col-md-4">
+        <%= link_to new_admin_question_path, class: 'btn btn-primary rounded-0 float-right' do %>
+          <i class="fas fa-plus mr-2">Add New Question</i>
+        <% end %>
+      </div>
+    </div>
+    <div class="list-group">
+      <% @questions.each do |question| %>
+        <%= link_to question.title, admin_question_path(question), class: "list-group-item list-group-item-action font-weight-bold text-primary" %>
+      <% end %>
+    </div>
+  </div>
+</div>
