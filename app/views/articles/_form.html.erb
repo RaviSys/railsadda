@@ -1,6 +1,6 @@
 <%= form_with(model: article, local: true) do |form| %>
   <%= render "partials/error", object: article %>
-
+  <%= form.hidden_field :user_id, value: current_user.id %>
   <div class="form-group">
     <%= form.label :title %>
     <%= form.text_field :title, class: "form-control rounded-0" %>

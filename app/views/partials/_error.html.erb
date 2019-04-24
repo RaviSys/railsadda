@@ -1,5 +1,5 @@
-<div class="alert alert-danger rounded-0 alert-dismissible fade show" role="alert">
-  <% if object.errors.any? %>
+<% if object.errors.any? %>
+  <div class="alert alert-danger rounded-0 alert-dismissible fade show" role="alert">
     <div id="error_explanation">
       <h5><%= pluralize(object.errors.count, "error") %> prohibited this article from being saved:</h5>
 
@@ -9,8 +9,8 @@
       <% end %>
       </ul>
     </div>
-  <% end %>
-  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-    <span aria-hidden="true">&times;</span>
-  </button>
-</div>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+<% end %>
