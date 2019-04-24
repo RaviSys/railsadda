@@ -1,27 +1,14 @@
-<p id="notice"><%= notice %></p>
-
-<h1>Questions</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @questions.each do |question| %>
-      <tr>
-        <td><%= question.title %></td>
-        <td><%= link_to 'Show', question %></td>
-        <td><%= link_to 'Edit', edit_question_path(question) %></td>
-        <td><%= link_to 'Destroy', question, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Question', new_question_path %>
+<div class="container">
+  <div class="row mt-5 mb-5">
+    <div class="col-md-9 col-lg-8 col-12">
+      <h1 class="text-muted">Listing Questions</h1>
+      <div class="list-group mt-3">
+        <% @questions.each do |question| %>
+          <%= link_to question.title, question, class: "list-group-item list-group-item-action active" %>
+        <% end %>
+      </div>
+    </div>
+    <div class="col-md-3 col-lg-4 col-12">
+    </div>
+  </div>
+</div>

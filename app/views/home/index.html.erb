@@ -9,20 +9,23 @@
   <% end %>
 </div>
 
-<div class="row mb-5 mt-5">
-  <div class="col-12">
-    <h1 class="text-center">Latest Blogs</h1>
-    <hr>
-  </div>
-  <% @articles.each do |article| %>
-    <div class="col-md-4 col-lg-4 col-sm-2 col-12">
-      <div class="card rounded-0">
-        <%= image_tag 'blogdum.jpg', class: 'card-img-top img-fluid' %>
-        <div class="card-body">
-          <h5 class="card-title"><%= link_to article.title, article %></h5>
-          <small class="text-muted"><%= article.subtitle %></small>
+<div class="container">
+  <div class="row mb-5 mt-5">
+    <div class="col-12">
+      <h1 class="text-center">Latest Blogs</h1>
+      <hr>
+    </div>
+    <% @articles.each do |article| %>
+      <div class="col-md-4 col-lg-4 col-sm-2 col-12">
+        <div class="card rounded-0">
+          <%= image_tag 'blogdum.jpg', class: 'card-img-top img-fluid' %>
+          <div class="card-body">
+            <h5 class="card-title"><%= link_to article.title, article %></h5>
+            <small class="text-muted"><%= article.subtitle %></small>
+          </div>
         </div>
       </div>
-    </div>
-  <% end %>
+    <% end %>
+  </div>
 </div>
+
