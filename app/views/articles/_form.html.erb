@@ -1,0 +1,35 @@
+<%= form_with(model: article, local: true) do |form| %>
+  <%= render "partials/error", object: article %>
+
+  <div class="form-group">
+    <%= form.label :title %>
+    <%= form.text_field :title, class: "form-control rounded-0" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :subtitle %>
+    <%= form.text_field :subtitle, class: "form-control rounded-0" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :content %>
+    <%= form.text_area :content, class: "tinymce", rows: "30", columns: "120" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :cover_image %><br>
+    <%= form.file_field :cover_image %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :keywords %>
+    <%= form.text_field :keyword_list, class: "form-control rounded-0", placeholder: 'Provide a comma saperated keyword list', value: article.keywords.map {|keyword| keyword }.join(', ') %>
+  </div>
+
+  <div class="form-group">
+    <%= form.submit class: 'btn btn-dark rounded-0 btn-lg' %>
+    <%= link_to 'Back', articles_path, class: 'btn btn-outline-dark rounded-0 btn-lg' %>
+  </div>
+<% end %>
+
+<%= tinymce %>

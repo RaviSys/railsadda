@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  before_action :authenticate_user!
+  # before_action :authenticate_user!
   before_action :prepare_meta_tags, if: -> { request.get? }
 
   def prepare_meta_tags(options={})

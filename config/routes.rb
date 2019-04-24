@@ -7,6 +7,12 @@ Rails.application.routes.draw do
     get 'activities' => 'sites#activities' 
   end
 
+  resources :articles do 
+    member do
+      patch "like", to: "articles#upvote"
+      patch "dislike", to: "articles#downvote"
+    end
+  end
   resources :questions do 
     member do
       patch "like", to: "questions#upvote"

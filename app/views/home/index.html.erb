@@ -1,13 +1,28 @@
-<% if user_signed_in? %>
-  <h5 class="text-muted font-weight-bold">Signed in as <span class="badge badge-success"><%= current_user.name %></span></h5>
-  <h5 class="text-muted font-weight-bold">
-    <%= link_to destroy_user_session_path, data: { confirm: 'Are you sure you want to sign out', method: :delete } do %>
-      <span class="badge badge-success">Log Out</span>
-    <% end %>
-    <%= link_to "My Activities", user_activities_path, class: "badge badge-success" %>
-  </h5>
-<% else %>
-  <%= link_to new_user_session_path do %>
-    <span class="badge badge-success">Log In</span>
+<div class="jumbotron mb-5">
+  <h1 class="display-4">Hello, world!</h1>
+  <p class="lead">We at <strong>RailsAdda</strong> provide way of learning things in easy manner. We are a community of highly skilled and well experienced <strong>Ruby on Rails</strong> developers around the globe. Visit us to get thire new findings reguarly and become a part of our community.</p>
+  <hr class="my-4">
+  <% unless user_signed_in? %>
+    <p class="lead">
+      <%= link_to "Sign In", new_user_session_path, class: "btn btn-dark btn-lg" %>
+    </p>
   <% end %>
-<% end %>
+</div>
+
+<div class="row mb-5 mt-5">
+  <div class="col-12">
+    <h1 class="text-center">Latest Blogs</h1>
+    <hr>
+  </div>
+  <% @articles.each do |article| %>
+    <div class="col-md-4 col-lg-4 col-sm-2 col-12">
+      <div class="card rounded-0">
+        <%= image_tag 'blogdum.jpg', class: 'card-img-top img-fluid' %>
+        <div class="card-body">
+          <h5 class="card-title"><%= link_to article.title, article %></h5>
+          <small class="text-muted"><%= article.subtitle %></small>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

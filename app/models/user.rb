@@ -9,6 +9,7 @@ class User < ApplicationRecord
 
   has_many :visits, class_name: "Ahoy::Visit"
   has_many :comments
+  has_many :articles
   
   ROLES.each do |role|
     define_method "#{role}?" do 

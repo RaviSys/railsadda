@@ -1,0 +1,82 @@
+Concern is a very powerful concept provided by ActiveSupport library of Rails. It is mainly used for including modules into classes and reusing the similar code we need to implement into multiple classes. When we are working on a Ruby on Rails application we should familiar with concerns. When you generate a new Rails application, you can always find that there are two main places of writing your concerns.
+
+1. app/controllers/concerns
+2. app/models/concerns
+
+In this article I am just explaining about how to write concerns for and using them into your ActiveRecord models. Basically the primary reason behind using concern is to extract common and/or context specific pieces of code in order to clean up your model classes and avoid them from being too fat and messy. 
+
+Now let's dive into some code. In this article I assumed that you are working in a rails application already. Now we are required to generate two models: Article and News. Lets run the following commands on terminal into your existing rails application.
+
+1. rails generate model Article title:string description:string status:string published_at:date
+2. rails generate model News title:string description:string status:string published_at:date
+
+After applying validations to all fields your model classes should look like this:
+
+# app/models/article.rb
+class Article < ApplicationRecord
+  validates :description, :status, presence: true
+  validates :title, presence: true, uniqueness: true
+end
+
+# app/models/news.rb
+class News < ApplicationRecord
+  validates :description, :status, presence: true
+  validates :title, presence: true, uniqueness: true
+end
+
+You can look into both models and you will find that the validations are same and we are just repeating them into both models. I will not refactor these models here because I want to explain some more efforts that would be similar for both models. For example both Article and News can have different status values like published, in_review and rejected. And now if we create scopes to find both the Article and News according to their status then we should write following scopes to both models:
+
+scope :published, -> { where(status: 'published') }
+scope :in_review, -> { where(status: 'in_review') } 
+scope :rejected, -> { where(status: 'rejected') }
+
+Now both of our models should look like below snippet:
+
+class Article < ApplicationRecord
+  validates :description, :status, presence: true
+  validates :title, presence: true, uniqueness: true
+  
+  scope :published, -> { where(status: 'published') }
+  scope :in_review, -> { where(status: 'in_review') } 
+  scope :rejected, -> { where(status: 'rejected') }
+end
+
+class News < ApplicationRecord
+  validates :description, :status, presence: true
+  validates :title, presence: true, uniqueness: true
+   
+  scope :published, -> { where(status: 'published') }
+  scope :in_review, -> { where(status: 'in_review') } 
+  scope :rejected, -> { where(status: 'rejected') }
+end
+
+
+Here you can see that both models are using same validations and scopes and this works fine technically but don't forget the Rails principle Don't Repeat Yourself(DRY). So it's the time where we should apply refactoring and believe me we can easily do this by using concerns. You just need to create a file inside app/models/concerns folder. Since in general we use both articles and news for getting some information so here I am naming my concern as Informable. Although you can choose any name according to your choice. But as a standard practice you should choose naming that meets you need and must have some meaning.
+
+# app/models/concerns/informable.rb
+module Informable
+  extend ActiveSupport::Concern
+
+  included do 
+    validates :description, :status, presence: true
+    validates :title, presence: true, uniqueness: true
+    scope :published, -> { where(status: 'published') }
+    scope :in_review, -> { where(status: 'in_review') } 
+    scope :rejected, -> { where(status: 'rejected') }
+  end
+
+end
+
+
+That's it. Now you just need to include this module into your model files. And then your refactored models must look like below snippet:
+
+class Article < ApplicationRecord
+  include Informable
+end
+
+class News < ApplicationRecord
+  include Informable
+end
+
+
+Here we done it. You can extend this approach as per your needs as it is just a very basic example but I hope It is enough for start using concerns for drying out your models from being fatty and messy and especially for those who are new to this concept.
