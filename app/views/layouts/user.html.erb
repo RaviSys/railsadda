@@ -14,8 +14,18 @@
 
   <body>
     <%= render 'partials/header' %>
-    <%= render 'partials/flash' %>
-    <%= yield %>
+    <div class="container mt-5 mb-5">
+      <%= render 'partials/flash' %>
+      <div class="row">
+        <div class="col-md-3">
+          <%= render 'partials/user_sidebar' %>      
+        </div>
+        <div class="col-md-9">
+          <%= yield %>
+        </div>
+      </div>
+    </div>
+    <%= render 'partials/logout_popup' %>
     <%= render 'partials/footer' %>
   </body>
 </html>

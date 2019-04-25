@@ -1,29 +1,18 @@
-<div class="container mt-5 mb-5">
-  <div class="row">
-    <div class="col-md-3">
-      <%= render 'partials/user_sidebar' %>      
+<p class="font-30 mb-1"><%= @article.title %></p>
+<%= image_tag "blogdum.jpg", class: 'img-fluid' %>
+<div class="d-flex flex-row">
+  <% @article.keywords.each do |keyword| %>
+    <div class="p-1">
+      <span class="badge badge-primary"><%= keyword %></span>
     </div>
-    <div class="col-md-9">
-      <p class="font-30 mb-1"><%= @article.title %></p>
-      <%= image_tag "blogdum.jpg", class: 'img-fluid' %>
-      <div class="d-flex flex-row">
-        <% @article.keywords.each do |keyword| %>
-          <div class="p-1">
-            <span class="badge badge-primary"><%= keyword %></span>
-          </div>
-        <% end %>
-      </div>
-      <div class="p-2 mt-4">
-        <%= @article.content.html_safe %>
-      </div>
-      <% if user_signed_in? %>
-        <% if @article.user == current_user %>
-          <%= link_to 'Edit', edit_article_path(@article), class: "btn btn-dark rounded-0 btn-lg mb-4 mr-3" %>
-        <% end %>
-      <% end %>
-      <%= link_to 'Back', articles_path, class: "btn btn-outline-dark rounded-0 btn-lg mb-4" %>
-    </div>
-  </div>
+  <% end %>
 </div>
-
-<%= render 'partials/logout_popup' %>
+<div class="p-2 mt-4">
+  <%= @article.content.html_safe %>
+</div>
+<% if user_signed_in? %>
+  <% if @article.user == current_user %>
+    <%= link_to 'Edit', edit_article_path(@article), class: "btn btn-dark rounded-0 btn-lg mb-4 mr-3" %>
+  <% end %>
+<% end %>
+<%= link_to 'Back', articles_path, class: "btn btn-outline-dark rounded-0 btn-lg mb-4" %>

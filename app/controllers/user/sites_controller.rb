@@ -1,20 +1,11 @@
-class User::SitesController < ApplicationController
-  before_action :authenticate_user!
-  before_action :set_user
+class User::SitesController < UserController
 
   def dashboard;end
 
   def activities
-    @activities = current_user.visits
+    @activities = @user.visits
   end
 
   def profile;end
-
-  private 
-
-    def set_user
-      @user = current_user
-    end
-
 
 end

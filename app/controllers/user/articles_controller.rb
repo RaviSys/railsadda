@@ -1,8 +1,6 @@
-class User::ArticlesController < ApplicationController
+class User::ArticlesController < UserController
   before_action :set_article, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_user!, except: [:index, :show]
-  before_action :set_user
-
+  
   def index
     @articles = Article.all
   end
@@ -66,8 +64,5 @@ class User::ArticlesController < ApplicationController
     def article_params
       params.require(:article).permit!
     end
-
-    def set_user
-      @user = current_user
-    end
+    
 end
