@@ -9,6 +9,9 @@ Rails.application.routes.draw do
   namespace :user do 
     get 'activities' => 'sites#activities' 
     get 'dashboard'  => 'sites#dashboard'
+
+    resources :articles
+
   end
 
   resources :articles do 

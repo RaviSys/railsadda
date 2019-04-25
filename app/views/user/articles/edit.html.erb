@@ -1,0 +1,17 @@
+<div class="container mt-5 mb-5">
+  <div class="row">
+    <div class="col-md-3">
+      <%= render 'partials/user_sidebar' %>      
+    </div>
+    <div class="col-md-9">
+      <div class="card rounded-0">
+        <div class="card-body">
+          <h3 class="text-muted mb-4">Editing article</h3>
+          <%= render 'form', article: @article %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%= render 'partials/logout_popup' %>
