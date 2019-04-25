@@ -1,10 +1,14 @@
 Rails.application.routes.draw do
   root 'home#index'
   get '/aboutus' => "home#about"
-  devise_for :users
+  devise_for :users, controllers: {
+    sessions: 'users/sessions',
+    registrations: 'users/registrations',
+  }
 
   namespace :user do 
     get 'activities' => 'sites#activities' 
+    get 'dashboard'  => 'sites#dashboard'
   end
 
   resources :articles do 

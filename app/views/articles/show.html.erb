@@ -1,6 +1,13 @@
 <div class="container">
   <div class="row mt-5">
     <div class="col-md-9">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="/">Home</a></li>
+          <li class="breadcrumb-item"><a href="/articles">Blogs</a></li>
+          <li class="breadcrumb-item active" aria-current="page"><%= @article.title %></li>
+        </ol>
+      </nav>
       <p class="font-30 mb-1"><%= @article.title %></p>
       <%= image_tag "blogdum.jpg", class: 'img-fluid' %>
       <div class="d-flex flex-row">
@@ -38,6 +45,7 @@
         <% end %>
       <% end %>
       <%= link_to 'Back', articles_path, class: "btn btn-outline-dark rounded-0 btn-lg mb-4" %>
+      <%= render 'partials/disqus_thread' %>
     </div>
   </div>
 </div>

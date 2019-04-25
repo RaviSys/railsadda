@@ -18,3 +18,14 @@
 .font-14 {
   font-size: 14px !important;
 }
+.user-card {
+  border-bottom: none;
+}
+.user-option-list .list-group-item:first-child {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+.user-option-list .list-group-item:last-child {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}

@@ -1,6 +1,6 @@
 class User < ApplicationRecord
 
-  ROLES = %w[admin collaborator guest]
+  ROLES = %w[admin developer learner interested]
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable

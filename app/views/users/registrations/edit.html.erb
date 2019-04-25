@@ -1,0 +1,95 @@
+<div class="container mt-5 mb-5">
+  <div class="row">
+    <div class="col-md-3">
+      <%= render 'partials/user_sidebar' %>      
+    </div>
+    <div class="col-md-9">
+      <div class="card rounded-0">
+        <div class="card-body">
+          <h5 class="card-title">Edit User Profile</h5>
+          <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+            <%= render "users/shared/error_messages", resource: resource %>
+
+            <div class="form-group row">
+              <div class="col-md-6">
+                <%= f.label :first_name %>
+                <%= f.text_field :first_name, class: "form-control rounded-0" %>
+              </div>
+              <div class="col-md-6">
+                <%= f.label :last_name %>
+                <%= f.text_field :last_name, class: "form-control rounded-0" %>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <div class="col-md-6">
+                <%= f.label :role %>
+                <%= f.select :role, options_for_select(User::ROLES.last(3).map {|role| role.humanize}, selected: resource.role), {prompt: 'Select a Role'}, {class: "form-control rounded-0"} %>
+              </div>
+              <div class="col-md-6">
+                <%= f.label :profile_pic %><br>
+                <%= f.file_field :profile_pic %>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <div class="col-md-6">
+                <%= f.label :display_title %>
+                <%= f.text_field :display_title, class: "form-control rounded-0" %>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <%= f.label :about %>
+              <%= f.text_area :about, class: "form-control rounded-0", rows: "7" %>
+            </div>
+
+            <div class="form-group row">
+              <div class="col-md-6">
+                <%= f.label :email %>
+                <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control rounded-0" %>
+              </div>
+            </div>
+
+            <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+              <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+            <% end %>
+
+            <div class="form-group row">
+              <div class="col-md-6">
+                <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
+                <%= f.password_field :password, autocomplete: "new-password", class: "form-control rounded-0" %>
+                <% if @minimum_password_length %>
+                  <em><%= @minimum_password_length %> characters minimum</em>
+                <% end %>
+              </div>
+              <div class="col-md-6">
+                <%= f.label :password_confirmation %>
+                <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control rounded-0" %>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <div class="col-12">
+                <%= f.label :current_password %>
+                <i>(we need your current password to confirm your changes)</i>
+              </div>
+              <div class="col-md-6">
+                <%= f.password_field :current_password, autocomplete: "current-password", class: "form-control rounded-0" %>
+              </div>
+            </div>
+
+            <div class="form-group">
+            </div>
+
+            <div class="actions">
+              <%= f.submit "Update", class: 'btn btn-dark rounded-0' %>
+            </div>
+          <% end %>
+        </div>
+      </div>  
+    </div>
+  </div>
+</div>
+
+<%= render 'partials/logout_popup' %>
