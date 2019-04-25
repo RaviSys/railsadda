@@ -58,7 +58,7 @@ class User::QuestionsController < UserController
   private
 
     def set_question
-      @question = Question.find(params[:id])
+      @question = Question.friendly.find(params[:id])
     end
 
     def question_params
