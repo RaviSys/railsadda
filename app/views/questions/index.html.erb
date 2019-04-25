@@ -4,7 +4,7 @@
       <h1 class="text-muted">Listing Questions</h1>
       <div class="list-group mt-3">
         <% @questions.each do |question| %>
-          <%= link_to question.title, question, class: "list-group-item list-group-item-action active" %>
+          <%= link_to question.title, question, class: "list-group-item list-group-item-action" %>
         <% end %>
       </div>
     </div>

@@ -1,36 +1,40 @@
-<div class="row mt-5">
-  <div class="col-md-9">
-    <p class="font-30 mb-1"><%= @question.title %></p>
-    <div class="d-flex flex-row">
-      <div class="p-2">
-        <%= link_to like_question_path(@question), method: :patch do %>
-          <%= image_tag 'like.png', width: '30' %>
-        <% end %><br>
-        <span class="ml-2"><%= @question.get_upvotes.size %></span>
+<div class="container">
+  <div class="row mt-5 mb-5">
+    <div class="col-md-9">
+      <p class="font-30 mb-1"><%= @question.title %></p>
+      <div class="d-flex flex-row">
+        <div class="p-2">
+          <%= link_to like_question_path(@question), method: :patch do %>
+            <%= image_tag 'like.png', width: '30' %>
+          <% end %><br>
+          <span class="ml-2"><%= @question.get_upvotes.size %></span>
+        </div>
+        <div class="p-2">
+          <%= link_to dislike_question_path(@question), method: :patch do %>
+            <%= image_tag 'dislike.png', width: '30' %>
+          <% end %><br>
+          <span class="ml-2"><%= @question.get_downvotes.size %></span>
+        </div>
+        <div class="p-2">
+          <%= link_to 'javascript:void(0)' do %>
+            <%= image_tag 'share.png', width: '30' %>
+          <% end %>
+        </div>
       </div>
-      <div class="p-2">
-        <%= link_to dislike_question_path(@question), method: :patch do %>
-          <%= image_tag 'dislike.png', width: '30' %>
-        <% end %><br>
-        <span class="ml-2"><%= @question.get_downvotes.size %></span>
-      </div>
-      <div class="p-2">
-        <%= link_to 'javascript:void(0)' do %>
-          <%= image_tag 'share.png', width: '30' %>
+      <div class="d-flex flex-row">
+        <% @question.keywords.each do |keyword| %>
+          <div class="p-2">
+            <span class="badge badge-primary"><%= keyword %></span>
+          </div>
         <% end %>
       </div>
-    </div>
-    <div class="d-flex flex-row">
-      <% @question.keywords.each do |keyword| %>
-        <div class="p-2">
-          <span class="badge badge-primary"><%= keyword %></span>
-        </div>
+      <div class="p-2 mt-4">
+        <%= @question.answer.html_safe %>
+      </div>
+      <% if user_signed_in? && @question.user == current_user %>
+        <%= link_to 'Edit', edit_question_path(@question), class: 'btn btn-dark btn-lg rounded-0 mr-3' %>
       <% end %>
+      <%= link_to 'Back', questions_path, class: 'btn btn-outline-dark btn-lg rounded-0' %>
     </div>
-    <div class="p-2 mt-4">
-      <%= @question.answer.html_safe %>
-    </div>
-    <%= link_to 'Edit', edit_question_path(@question) %> |
-    <%= link_to 'Back', questions_path %>
   </div>
 </div>
