@@ -11,7 +11,7 @@ Rails.application.routes.draw do
     get 'dashboard'  => 'sites#dashboard'
 
     resources :articles
-
+    resources :questions
   end
 
   resources :articles do 

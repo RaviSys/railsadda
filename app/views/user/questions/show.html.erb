@@ -1,0 +1,17 @@
+<p class="font-30 mb-1"><%= @question.title %></p>
+<div class="d-flex flex-row">
+  <% @question.keywords.each do |keyword| %>
+    <div class="p-1">
+      <span class="badge badge-primary"><%= keyword %></span>
+    </div>
+  <% end %>
+</div>
+<div class="p-2 mt-4">
+  <%= @question.answer.html_safe %>
+</div>
+<% if user_signed_in? %>
+  <% if @question.user == current_user %>
+    <%= link_to 'Edit', edit_question_path(@question), class: "btn btn-dark rounded-0 btn-lg mb-4 mr-3" %>
+  <% end %>
+<% end %>
+<%= link_to 'Back', user_questions_path, class: "btn btn-outline-dark rounded-0 btn-lg mb-4" %>
