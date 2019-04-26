@@ -9,10 +9,12 @@ Rails.application.routes.draw do
   namespace :user do 
     get 'activities' => 'sites#activities' 
     get 'dashboard'  => 'sites#dashboard'
-
+    get 'skills'    => 'sites#manage_skills'
+    patch 'update_skills' => 'sites#update_skills'
     resources :articles
     resources :questions
     resources :work_samples
+    resources :user_skills
   end
 
   resources :articles do 
@@ -31,6 +33,7 @@ Rails.application.routes.draw do
   namespace :admin do 
     get 'dashboard' => "sites#dashboard"
     resources :questions
+    resources :skills
   end
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

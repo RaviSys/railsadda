@@ -1,0 +1,32 @@
+<div class="card rounded-0 mb-3">
+  <div class="card-body">
+    <% unless @user.skills.present? %>
+      <small class="text-danger">** You have not added any skill yet to your profile. Your profile will not be displayed to outside users until you have at least one skill.</small>
+    <% end %>
+    <h3>Manage Skills</h3>
+    <%= form_for :skills, url: :user_update_skills, method: :patch do |f| %>
+      <div class="form-group row">
+        <% @skills.each do |skill| %>
+          <div class="col-md-3 col-sm-4 col-6">
+            <% if @user.skills.ids.include? skill.id %>
+              <label>
+                <input type="checkbox" name="skills[skill_remove][]" value="<%= skill.id %>" checked>
+                <%= skill.name %>
+              </label>
+            <% else %>
+              <label>
+                <input type="checkbox" name="skills[skill_add][]" value="<%= skill.id %>">
+                <%= skill.name %>
+              </label>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+      <div class="form-group row">
+        <div class="col-md-4">
+          <%= f.submit 'Update My Skills', class: "btn btn-dark rounded-0 btn-block" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

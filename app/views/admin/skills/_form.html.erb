@@ -1,0 +1,13 @@
+<%= form_for [:admin, skill] do |form| %>
+  <%= render "partials/error", object: skill %>
+
+  <div class="form-group">
+    <%= form.label :name %>
+    <%= form.text_field :name, class: 'form-control rounded-0' %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit class: 'btn btn-dark rounded-0' %>
+    <%= link_to 'Back', admin_skills_path, class: 'btn btn-outline-dark rounded-0' %>
+  </div>
+<% end %>

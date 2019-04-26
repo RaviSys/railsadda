@@ -11,6 +11,8 @@ class User < ApplicationRecord
   has_many :comments
   has_many :articles
   has_many :work_samples
+  has_many :user_skills
+  has_many :skills, through: :user_skills
   
   ROLES.each do |role|
     define_method "#{role}?" do 
