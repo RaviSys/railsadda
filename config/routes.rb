@@ -12,6 +12,7 @@ Rails.application.routes.draw do
 
     resources :articles
     resources :questions
+    resources :work_samples
   end
 
   resources :articles do 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_25_111211) do
+ActiveRecord::Schema.define(version: 2019_04_26_063218) do
 
   create_table "ahoy_events", force: :cascade do |t|
     t.integer "visit_id"
@@ -155,6 +155,18 @@ ActiveRecord::Schema.define(version: 2019_04_25_111211) do
     t.index ["votable_type", "votable_id"], name: "index_votes_on_votable_type_and_votable_id"
     t.index ["voter_id", "voter_type", "vote_scope"], name: "index_votes_on_voter_id_and_voter_type_and_vote_scope"
     t.index ["voter_type", "voter_id"], name: "index_votes_on_voter_type_and_voter_id"
+  end
+
+  create_table "work_samples", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.string "codebase_url"
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "slug"
+    t.index ["slug"], name: "index_work_samples_on_slug", unique: true
+    t.index ["user_id"], name: "index_work_samples_on_user_id"
   end
 
 end

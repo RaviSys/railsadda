@@ -1,0 +1,20 @@
+<div class="card rounded-0">
+  <div class="card-body">
+    <p>
+      <strong>Name:</strong>
+      <%= @work_sample.name %>
+    </p>
+
+    <p>
+      <strong>Description:</strong>
+      <%= @work_sample.description %>
+    </p>
+
+    <p>
+      <strong>Codebase url:</strong>
+      <%= link_to @work_sample.codebase_url, @work_sample.codebase_url, target: '_blank' %>
+    </p>
+
+    <%= link_to 'Back', user_work_samples_path, class: 'btn btn-outline-dark rounded-0' %>
+  </div>
+</div>
