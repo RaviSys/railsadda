@@ -1,3 +1,5 @@
+Using Concerns in ActiveRecord Models
+
 Concern is a very powerful concept provided by ActiveSupport library of Rails. It is mainly used for including modules into classes and reusing the similar code we need to implement into multiple classes. When we are working on a Ruby on Rails application we should familiar with concerns. When you generate a new Rails application, you can always find that there are two main places of writing your concerns.
 
 1. app/controllers/concerns

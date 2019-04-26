@@ -1,0 +1,102 @@
+Calculating Completeness of attributes of Rails Models
+
+Hello Folks,
+
+Hope you all are doing well. In recent week I just faced a feature on an ongoing project that is to track the completeness of model data, i.e. how many attributes of a rails model have non-empty values. In more simpler terms we can take an example of profile of a user, that how many information we need to gather from user and how much he actually provide to us. I am sharing this because I feel that it might help someone. First I tried to find some gem but I didn't get any to complete my requirement. Then I decided to go for manual implementation.
+
+First I tried with a single model, then I used modules to do stuffs. Here I am not going deep about modules and basics of rails application. I assumed that anyone who referring this article must have a rails application and I am just starting with a simple scaffold. One more thing I implemented this one into rails 5 but I believe this can also be useful for rails 4 and rails 3.
+
+Follow these steps:
+
+rails g scaffold professional first_name last_name email address city state country profile_photo contact about:text current_company previous_company total_experience current_company_job_title previous_company_job_title current_company_job_description:text previous_company_job_description:text
+
+rails db:migrate
+
+Now put the following code into app/models/professional.rb
+
+# This will count all fields for your model including default created_at and updated_at model fields
+def self.total_columns
+  column_names.count  
+end
+
+# This will display all model fields names
+def self.all_columns
+  column_names  
+end
+
+# This will check and counts the total non-empty fields for your model
+def filled_columns
+  counter = 0
+  self.class.all_columns.each do |column|
+    if self.attributes[column].present?
+      counter += 1 
+    end
+  end
+  counter
+end
+
+# This will calculates the percentage of completeness for your model
+def completeness
+  "#{(self.filled_columns * 100) / self.class.total_columns} %"
+end
+
+Wow! Its done. To check you can create a professional with some empty fields and then you can check these methods as well like this:
+
+Professional.total_count #=> 20 (This may vary if you remove or add fields from the above sacffold command)
+
+Professional.all_columns #=> ["id", "first_name", "last_name", "email", "address", "city", "state", "country", "profile_photo", "contact", "about", "current_company", "previous_company", "total_experience", "current_company_job_title", "previous_company_job_title", "current_company_job_description", "previous_company_job_description", "created_at", "updated_at"] (This may also vary if you remove or add fields from the above sacffold command)
+
+Professional.last.filled_columns #=> 4 (This will depends on how many fields you left empty)
+
+Professional.last.completeness #=> "20%" (This will also depends on how many fields you left empty)
+
+Till this stage everything is working fine. And we can do the same thing for all our rails models. But hold on, Repeating this similar code into every model is not a standard rails practice. I suggest you to use modules for this purpose. I am assuming you have well brief of modules.
+
+Let's create our completeness module. First remove all these methods form professional model and create a module in app/models/concerns/completeness.rb. And puts following code snippet inside this file.
+
+module Completeness
+
+  include ActiveSupport::Concern
+
+  # This will contains the class methods for your model
+  module ClassMethods
+
+    def total_columns
+      column_names.count  
+    end
+
+    def all_columns
+      column_names  
+    end
+  
+  end
+
+  # This will contains the instance methods for your model
+  module InstanceMethods
+
+    def filled_columns
+      counter = 0
+      self.class.all_columns.each do |column|
+        if self.attributes[column].present?
+          counter += 1 
+        end
+      end
+      counter
+    end
+
+    def completeness
+      "#{(filled_columns * 100) / self.class.total_columns} %"
+    end
+
+  end
+
+end
+
+We are done here. Just one more thing we need to do now here. Add following lines into your rails model.
+
+extend Completeness::ClassMethods
+include Completeness::InstanceMethods
+
+Note: extend is used for using class methods inside modules and include is used for using instance methods inside modules.
+
+Thanks for reading this article. This code might not be too optimized, so if any one can help me to do so I will be glade.

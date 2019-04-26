@@ -34,4 +34,16 @@ class ApplicationController < ActionController::Base
     set_meta_tags options
   end
 
+  protected 
+
+    def after_sign_in_path_for(resource)
+      unless resource.admin?
+        user_dashboard_path
+      end
+    end
+
+    def after_sign_out_path_for(resource)
+      root_path
+    end
+
 end
