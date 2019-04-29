@@ -1,6 +1,7 @@
-<div class="jumbotron mb-5">
+<div class="jumbotron mb-5 text-center">
   <h1 class="display-4">Hello, world!</h1>
   <p class="lead">We at <strong>RailsAdda</strong> provide way of learning things in easy manner. We are a community of highly skilled and well experienced <strong>Ruby on Rails</strong> developers around the globe. Visit us to get thire new findings reguarly and become a part of our community.</p>
+  <%= render 'partials/search_professionals' %>
   <hr class="my-4">
   <% unless user_signed_in? %>
     <p class="lead">
@@ -28,4 +29,3 @@
     <% end %>
   </div>
 </div>
-

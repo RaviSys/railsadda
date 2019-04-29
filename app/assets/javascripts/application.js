@@ -12,8 +12,10 @@
 //
 //= require rails-ujs
 //= require jquery3
+//= require jquery-ui
 //= require popper
 //= require bootstrap
 //= require tinymce
 //= require prism
+//= require skills_autocomplete
 //= require activestorage

@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   root 'home#index'
   get '/aboutus' => "home#about"
+  get 'skills_autocomplete' => "home#skills_autocomplete"
+
   devise_for :users, controllers: {
     sessions: 'users/sessions',
     registrations: 'users/registrations',
