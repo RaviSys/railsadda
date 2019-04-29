@@ -1,0 +1,15 @@
+<div class="container">
+  <div class="row mt-5 mb-5">
+    <div class="col-12">
+      <div class="card rounded-0 shadow">
+        <div class="card-body">
+          <div class="font-30 text-center">
+            <p class=""><%= @users.size > 0 ? pluralize(@users.size, "result") : 'No' %> found for <strong style="text-decoration: underline;"><%= @skill.name %></strong></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row mt-5 mb-5">
+  </div>
+</div>

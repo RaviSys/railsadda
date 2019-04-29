@@ -10,4 +10,9 @@ class HomeController < ApplicationController
     render json: @skills
   end
 
+  def search_professionals
+    @skill = Skill.find_by(name: params[:search][:skill])
+    @users = @skill.users
+  end
+
 end

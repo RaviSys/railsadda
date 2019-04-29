@@ -4,7 +4,7 @@
     <div class="col-md-10 mx-md-auto col-lg-9 mx-lg-auto">
       <div class="card rounded-0 shadow mt-3">
         <div class="card-body">
-          <%= form_for :search, url: '#', method: :get do |f| %>
+          <%= form_for :search, url: :search_professionals, method: :get do |f| %>
             <div class="form-group pt-3">
               <div class="input-group mb-3">
                 <%= f.text_field :skill, class: "form-control rounded-0", id: "skills", placeholder: "Search Professionals by Skills", area: { label: "Search Professionals by Skills", describedby: "basic-addon2" } %>
