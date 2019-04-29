@@ -34,7 +34,10 @@ Rails.application.routes.draw do
     get 'dashboard' => "sites#dashboard"
     resources :questions
     resources :skills
+    resources :subscriptions, only: [:index]
   end
+
+  resources :subscriptions, only: [:create]
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

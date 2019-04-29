@@ -1,0 +1,13 @@
+<div class="card rounded-0">
+  <div class="card-body text-center">
+    <p class="lead font-15">Subscribe Our Weekly News Letter</p>
+    <%= form_for :subscription, url: :subscriptions, method: :post do |f| %>
+      <div class="form-group">
+        <%= f.email_field :email, class: 'form-control', placeholder: 'Write your email', required: true %>
+      </div>
+      <div class="form-group">
+        <%= f.submit 'Subscribe Now', class: 'btn btn-dark btn-sm' %>
+      </div>
+    <% end %>
+  </div>
+</div>
