@@ -1,46 +1,50 @@
 <div class="container">
-  <div class="row mt-5">
+  <div class="row mt-5 mb-5">
     <div class="col-md-9">
-      <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="/">Home</a></li>
-          <li class="breadcrumb-item"><a href="/articles">Blogs</a></li>
-          <li class="breadcrumb-item active" aria-current="page"><%= @article.title %></li>
-        </ol>
-      </nav>
-      <p class="font-30 mb-1"><%= @article.title %></p>
-      <%= image_tag "blogdum.jpg", class: 'img-fluid' %>
-      <div class="d-flex flex-row">
-        <div class="p-2">
-          <%= link_to like_article_path(@article), method: :patch do %>
-            <%= image_tag 'like.png', width: '30' %>
-          <% end %><br>
-          <span class="ml-2"><%= @article.get_upvotes.size %></span>
-        </div>
-        <div class="p-2">
-          <%= link_to dislike_article_path(@article), method: :patch do %>
-            <%= image_tag 'dislike.png', width: '30' %>
-          <% end %><br>
-          <span class="ml-2"><%= @article.get_downvotes.size %></span>
-        </div>
-        <div class="p-2">
-          <%= link_to 'javascript:void(0)' do %>
-            <%= image_tag 'share.png', width: '30' %>
-          <% end %>
-        </div>
-      </div>
-      <div class="d-flex flex-row">
-        <% @article.keywords.each do |keyword| %>
-          <div class="p-1">
-            <span class="badge badge-primary"><%= keyword %></span>
+      <div class="card roundded-0 shadow">
+        <div class="card-body">
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="/">Home</a></li>
+              <li class="breadcrumb-item"><a href="/articles">Blogs</a></li>
+              <li class="breadcrumb-item active" aria-current="page"><%= @article.title %></li>
+            </ol>
+          </nav>
+          <p class="font-30 mb-1"><%= @article.title %></p>
+          <%= image_tag "blogdum.jpg", class: 'img-fluid' %>
+          <div class="d-flex flex-row">
+            <div class="p-2">
+              <%= link_to like_article_path(@article), method: :patch do %>
+                <%= image_tag 'like.png', width: '30' %>
+              <% end %><br>
+              <span class="ml-2"><%= @article.get_upvotes.size %></span>
+            </div>
+            <div class="p-2">
+              <%= link_to dislike_article_path(@article), method: :patch do %>
+                <%= image_tag 'dislike.png', width: '30' %>
+              <% end %><br>
+              <span class="ml-2"><%= @article.get_downvotes.size %></span>
+            </div>
+            <div class="p-2">
+              <%= link_to 'javascript:void(0)' do %>
+                <%= image_tag 'share.png', width: '30' %>
+              <% end %>
+            </div>
           </div>
-        <% end %>
+          <div class="d-flex flex-row">
+            <% @article.keywords.each do |keyword| %>
+              <div class="p-1">
+                <span class="badge badge-primary"><%= keyword %></span>
+              </div>
+            <% end %>
+          </div>
+          <div class="p-2 mt-4">
+            <%= @article.content.html_safe %>
+          </div>
+          <%= link_to 'Back', articles_path, class: "btn btn-outline-dark rounded-0 btn-lg mb-4" %>
+          <%= render 'partials/disqus_thread' %>
+        </div>
       </div>
-      <div class="p-2 mt-4">
-        <%= @article.content.html_safe %>
-      </div>
-      <%= link_to 'Back', articles_path, class: "btn btn-outline-dark rounded-0 btn-lg mb-4" %>
-      <%= render 'partials/disqus_thread' %>
     </div>
     <div class="col-md-3">
       <%= render 'partials/subscription' %>
