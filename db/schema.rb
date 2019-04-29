@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_26_122446) do
+ActiveRecord::Schema.define(version: 2019_04_29_072246) do
 
   create_table "ahoy_events", force: :cascade do |t|
     t.integer "visit_id"
@@ -153,6 +153,9 @@ ActiveRecord::Schema.define(version: 2019_04_26_122446) do
     t.text "about"
     t.string "profile_pic"
     t.string "display_title"
+    t.string "skype_id"
+    t.string "github_url"
+    t.string "linkedin_url"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

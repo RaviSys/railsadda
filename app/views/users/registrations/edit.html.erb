@@ -74,6 +74,18 @@
       </div>
 
       <div class="form-group">
+        <%= f.label 'How users can connect to you on skype' %>
+        <%= f.text_field :skype_id, class: 'form-control rounded-0', placeholder: 'Your Skype Username' %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label 'Display your GitHub Profile' %>
+        <%= f.text_field :github_url, class: 'form-control rounded-0', placeholder: 'Provide your GitHub url here' %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label 'Display your LinkedIn Profile' %>
+        <%= f.text_field :linkedin_url, class: 'form-control rounded-0', placeholder: 'Provide your LinkedIn url here' %>
       </div>
 
       <div class="actions">
