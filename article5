@@ -1,0 +1,201 @@
+Using Jquery Autocomplete With Rails 5
+
+Jquery Autocomplete is a Jquery-UI widget which enables users to quickly find and select from a pre-populated list of values as they type, leveraging searching and filtering. The Autocomplete widgets provides suggestions while you type into the field.
+
+Here in this article we will see that how we can use this autocomplete feature into aur rails projects. Read the article carefully till end and then try it yourself.
+
+# Rails Application Setup
+
+First we need to create a rails application into which we want to use jquery autocomplete. Here I am creating a rails application from scratch but you can also use this into your existing rails application as well.
+
+rails new autocomplete-demo
+cd autocomplete-demo
+bundle install
+rails s
+
+Generate a home controller with index action. We are generating this controller because we need to change the default root of our rails application. Although it is not mendatory rather than a good practice.
+
+rails g controller home index
+
+Now go to config/routes.rb and set root path :
+replace 
+get 'home/index'
+with 
+root 'home#index'
+
+Now we need to create a model to which we want to use autocomplete widget. Here I am taking Skill model for that purpose. Lets generate the model 
+
+rails g scaffold skill name description:text
+# Scaffold will generate controller, model and views as well.
+
+Now run migration
+rails db:migrate 
+
+Next open app/models/skill.rb and add some validations into it. Your skill model should look like this:
+
+class Skill < ApplicationRecord
+  validates :name, presence: true, uniqueness: true
+end
+
+Now add some dummy data to this model. This will help us to populate autocomplete and save time to creating them using view. Pase following code into db/seeds.rb
+
+skills = Skill.create([
+  { name: "Angular 1", description: "Pending....." },
+  { name: "Angular 2+", description: "Pending....." },
+  { name: "Twitter Bootstrap", description: "Pending....." },
+  { name: "Javascript", description: "Pending....." },
+  { name: "Jquery", description: "Pending....." },
+  { name: "Jquery UI", description: "Pending....." },
+  { name: "Material Design", description: "Pending....." },
+  { name: "Symentic UI", description: "Pending....." },
+  { name: "React Native", description: "Pending....." },
+  { name: "Node Js", description: "Pending....." },
+  { name: "MEAN Stack", description: "Pending....." },
+  { name: "Express Js", description: "Pending....." },
+  { name: "PHP + MySQL", description: "Pending....." },
+  { name: "PHP Laravel", description: "Pending....." },
+  { name: "Wordpress", description: "Pending....." },
+  { name: "Ruby", description: "Pending....." },
+  { name: "Ruby on Rails", description: "Pending....." },
+  { name: "Python", description: "Pending....." },
+  { name: "Django", description: "Pending....." },
+  { name: "Postgresql", description: "Pending....." },
+  { name: "Mongo DB", description: "Pending....." },
+  { name: "C#", description: "Pending....." },
+  { name: "ASP.NET", description: "Pending....." },
+  { name: ".NET", description: "Pending....." },
+  { name: "Java", description: "Pending....." },
+  { name: "GraphQL", description: "Pending....." },
+  { name: "Android", description: "Pending....." },
+  { name: "Ionic", description: "Pending....." },
+  { name: "GIT", description: "Pending....." },
+  { name: "Bitbucket", description: "Pending....." },
+  { name: "AWS", description: "Pending....." },
+  { name: "DevOpps", description: "Pending....." },
+  { name: "Docker", description: "Pending....." },
+  { name: "Heroku", description: "Pending....." },
+  { name: "GITLAB", description: "Pending....." },
+  { name: "Block Chain", description: "Pending....." },
+  { name: "Sinatra", description: "Pending....." },
+  { name: "C", description: "Pending....." },
+  { name: "C++", description: "Pending....." },
+  { name: "HTML5", description: "Pending....." },
+  { name: "JSON", description: "Pending....." },
+  { name: "XML", description: "Pending....." },
+  { name: "CSS3", description: "Pending....." },
+  { name: "IoT", description: "Pending....." }
+])
+
+Now run following rails task to populate this data into our skill database.
+
+rails db:seed
+
+and check all skills at http://localhost:3000/skills
+
+Till this stage we have created a basic rails application with few dummy data. Into next we need to setup autocomplete. 
+
+# Adding Jquery and Jquery-UI
+
+Since we are working in rails 5 application and from rails 5.x jquery is not included by default so we need to add this gem manualy to our application. Add following gems to your Gemfile
+
+gem 'jquery-rails'
+gem 'jquery-ui-rails'
+gem 'bootstrap', '~> 4.3.1'
+
+and then run bundle
+
+bundle install
+
+restart the rails server
+
+Now since I included bootstrap gem so we need to rename the file app/assests/stylesheets/application.css to app/assests/stylesheets/application.scss and then import bootstrap and jquery-ui there:
+
+@import "bootstrap";
+@import "jquery-ui";
+
+And your app/assets/javascripts/application.js should look like this:
+
+//= require rails-ujs
+//= require jquery3
+//= require jquery-ui
+//= require popper
+//= require bootstrap
+
+# Create form to apply autocomplete
+
+Open app/views/home/index.html.erb and paste following code there.
+
+<h1 class="font-30 mt-5">Search Professionals</h1>
+<div class="container">
+  <div class="row">
+    <div class="col-md-10 mx-md-auto col-lg-9 mx-lg-auto">
+      <div class="card rounded-0 shadow mt-3">
+        <div class="card-body">
+          <%= form_for :search, url: '#', method: :get do |f| %>
+            <div class="form-group pt-3">
+              <div class="input-group mb-3">
+                <%= f.text_field :skill, class: "form-control rounded-0", id: "skills", placeholder: "Search Professionals by Skills", area: { label: "Search Professionals by Skills", describedby: "basic-addon2" } %>
+                <div class="input-group-append">
+                  <button class="btn btn-dark rounded-0" type="submit"><i class="fas fa-search mr-1"></i> Search</button>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+Now to fetch all the skills ready for autocomplete we need to create an action in controller and I am doing this into app/controllers/home_controller.rb
+
+paste following action below index action into home controller:
+
+def skills_autocomplete
+  @skills = Skill.order(:name).map { |skill| skill.name }
+  render json: @skills
+end
+
+After doing this your home controller should look like this:
+
+class HomeController < ApplicationController
+  def index;end
+
+  def skills_autocomplete
+    @skills = Skill.order(:name).map { |skill| skill.name }
+    render json: @skills
+  end
+
+end
+
+And define a route into config/routes.rb. Add following line there
+
+get 'skills_autocomplete' => "home#skills_autocomplete"
+
+We are almost done here. Just one more thing we need to do is that create a file inside app/assets/javascripts folder with skill_autocomplete.js and paste following code there:
+
+$(function() {
+  var skills = 'skills_autocomplete.json';
+  availableSkills = [];
+  $.getJSON(skills, function(data){
+    $.each(data, function(index, value){
+      availableSkills.push(value);
+    });
+  });
+  $('#skills').autocomplete({
+    source: availableSkills
+  });
+});
+
+and require this file at the last into app/assets/javascripts/application.js. After doing so your application.js should look like this:
+
+//= require rails-ujs
+//= require jquery3
+//= require jquery-ui
+//= require popper
+//= require bootstrap
+//= require skills_autocomplete
+
+Now refresh the home page and type any letter into the search box and you will see the efect of jquery-ui autocomplete. One thing to remember that in this article I am only illustrated that how we can use autocomplete to provide suggestions while searching but I didn't implemented the search functionality. By the way its too easy to implement the search method you can try this to your own way. 
+
+Thank you for reading.
