@@ -12,8 +12,8 @@
   </div>
   <% unless @users.empty? %>
     <div class="row mt-5 mb-5">
-      <% @users.each do |user| %>
-        <div class="col-md-7">
+      <div class="col-md-7">
+        <% @users.each do |user| %>
           <div class="card rounded-0 mb-3">
             <div class="card-body">
               <div class="row">
@@ -28,8 +28,11 @@
               </div>
             </div>
           </div>
-        </div>
-      <% end %>
+        <% end %>
+      </div>
+      <div class="col-md-5">
+        <%= render 'partials/subscription' %>
+      </div>
     </div>
   <% end %>
 </div>
