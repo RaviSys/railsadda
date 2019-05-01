@@ -10,6 +10,26 @@
       </div>
     </div>
   </div>
-  <div class="row mt-5 mb-5">
-  </div>
+  <% unless @users.empty? %>
+    <div class="row mt-5 mb-5">
+      <% @users.each do |user| %>
+        <div class="col-md-7">
+          <div class="card rounded-0 mb-3">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-3 col-sm-4">
+                  <%= image_tag "userdummy.png", class: "img-fluid" %>
+                </div>
+                <div class="col-md-9 col-sm-8">
+                  <h6 class="text-muted"><%= user.name %></h6>
+                  <h6 class="text-white badge badge-primary badge-pill"><%= user.display_title %></h6><br>
+                  <%= link_to 'View Profile', 'javascript:void(0)', class: 'btn btn-primary mt-3' %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
 </div>
