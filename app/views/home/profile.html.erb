@@ -1,0 +1,23 @@
+<div class="contanier">
+  <div class="row mt-5 mb-5">
+    <div class="col-md-8 offset-2">
+      <div class="card rounded-0">
+        <div class="card-header">
+          <h5 class="card-title text-center">User Profile</h5>
+        </div>
+        <div class="card-body">
+         <div class="text-center">
+          <% if @user.profile_pic.present? %>
+            <%= image_tag @user.profile_pic.url, class: "rounded-circle" %>
+          <% else %>
+            <%= image_tag 'userdummy.png', width: '120', class: "rounded-circle" %>
+          <% end %>
+         </div>
+         <h5 class="text-primary text-center mt-2"><%= @user.display_title %></h5>
+         <h6 class="text-center mt-2"><%= @user.display_title %></h6>
+         <p class="text-justify"><%= @user.about %></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

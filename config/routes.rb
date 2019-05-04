@@ -3,6 +3,8 @@ Rails.application.routes.draw do
   get '/aboutus' => "home#about"
   get 'skills_autocomplete' => "home#skills_autocomplete"
   get 'search_professionals' => "home#search_professionals"
+  get 'profile' => "home#profile"
+
   devise_for :users, controllers: {
     sessions: 'users/sessions',
     registrations: 'users/registrations',
