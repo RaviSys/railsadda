@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_29_092244) do
+ActiveRecord::Schema.define(version: 2019_05_09_114755) do
 
   create_table "ahoy_events", force: :cascade do |t|
     t.integer "visit_id"
@@ -71,6 +71,17 @@ ActiveRecord::Schema.define(version: 2019_04_29_092244) do
     t.datetime "updated_at", null: false
     t.index ["question_id"], name: "index_comments_on_question_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
+  end
+
+  create_table "enquiries", force: :cascade do |t|
+    t.string "name"
+    t.string "email"
+    t.string "contact"
+    t.string "message"
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_enquiries_on_user_id"
   end
 
   create_table "friendly_id_slugs", force: :cascade do |t|

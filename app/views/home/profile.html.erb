@@ -1,6 +1,6 @@
-<div class="container  mt-5 mb-5">
+<div class="container mt-5 mb-5">
   <div class="row">
-    <div class="col-md-8 mx-md-auto">
+    <div class="col-md-8">
       <div class="card rounded-0">
         <div class="card-header">
           <h5 class="card-title text-center"><%= @user.name %></h5>
@@ -28,6 +28,34 @@
             <% end %>
             <% if @user.linkedin_url.present? %>
               <h5><i class="fab fa-linkedin mr-3"></i><span class="font-15"><%= link_to @user.linkedin_url, @user.linkedin_url %></span></h5>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card rounded-0">
+        <div class="card-body">
+          <p class="lead">Would you like to ask somthing with <%= @user.name %>.</p>
+          <p class="font-15">Just fill the details in form below. <%= @user.first_name%> will be in touch once he received your message.</p>
+          <div class="enquiry-form mt-5">
+            <%= form_for :enquiry, url: :enquiries, method: :post do |f| %>
+              <%= f.hidden_field :user_id, value: @user.id %>  
+              <div class="form-group">
+                <%= f.text_field :full_name, class: 'form-control rounded-0', required: true, placeholder: 'Write your full name' %>
+              </div>
+              <div class="form-group">
+                <%= f.email_field :email, class: 'form-control rounded-0', required: true, placeholder: 'Write your email address' %>
+              </div>
+              <div class="form-group">
+                <%= f.text_field :contact, class: 'form-control rounded-0', required: true, placeholder: 'Write your phone/mobile' %>
+              </div>
+              <div class="form-group">
+                <%= f.text_area :message, class: 'form-control rounded-0', required: true, placeholder: 'What you want to ask', rows: '6' %>
+              </div>
+              <div class="form-group text-center">
+                <%= f.submit 'Send Enquiry', class: 'btn btn-dark rounded-0' %>
+              </div>
             <% end %>
           </div>
         </div>
