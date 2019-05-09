@@ -36,16 +36,9 @@
         <div class="card rounded-0 mt-5">
           <div class="card-body">
             <h5 class="text-center mb-4">Articles written by <strong><span class="text-primary"><%= @user.name %></span></strong> </h5>
-            <div class="row">
+            <div class="list-group">
               <% @user.articles.each do |article| %>
-                <div class="col-md-4 col-lg-4 col-sm-2 col-12 mb-4">
-                  <div class="card rounded-0">
-                    <%= image_tag 'blogdum.jpg', class: 'card-img-top', height: '130' %>
-                    <div class="card-body">
-                      <h5 class="card-title font-15"><%= link_to article.title, article, target: '_blank' %></h5>
-                    </div>
-                  </div>
-                </div>
+                <%= link_to article.title, article, target: '_blank', class: 'list-group-item list-group-item-action' %>
               <% end %>
             </div>
           </div>
